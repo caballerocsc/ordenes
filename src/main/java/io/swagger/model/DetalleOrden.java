@@ -7,6 +7,13 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import org.springframework.validation.annotation.Validated;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
@@ -17,30 +24,42 @@ import javax.validation.constraints.*;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-09-21T18:52:45.181Z")
 
+@Entity
+@Table(name = "detorden")
 public class DetalleOrden   {
+	
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @JsonProperty("idDetOrden")
-  private Integer idDetOrden = null;
+  private Integer iddetorden = null;
 
+  @Column(name = "idorden")
   @JsonProperty("idOrden")
   private Integer idOrden = null;
 
+  @Column(name = "idproducto")
   @JsonProperty("idProducto")
   private Integer idProducto = null;
 
+  @Column(name = "cantidad")
   @JsonProperty("cantidad")
   private Integer cantidad = null;
 
+  @Column(name = "valorunidad")
   @JsonProperty("valorUnidad")
   private BigDecimal valorUnidad = null;
 
+  @Column(name = "idproveedor")
   @JsonProperty("idProveedor")
   private Integer idProveedor = null;
 
+  @Column(name = "estado")
   @JsonProperty("estado")
   private String estado = null;
 
+  
   public DetalleOrden idDetOrden(Integer idDetOrden) {
-    this.idDetOrden = idDetOrden;
+    this.iddetorden = idDetOrden;
     return this;
   }
 
@@ -52,11 +71,11 @@ public class DetalleOrden   {
 
 
   public Integer getIdDetOrden() {
-    return idDetOrden;
+    return iddetorden;
   }
 
   public void setIdDetOrden(Integer idDetOrden) {
-    this.idDetOrden = idDetOrden;
+    this.iddetorden = idDetOrden;
   }
 
   public DetalleOrden idOrden(Integer idOrden) {
@@ -190,7 +209,7 @@ public class DetalleOrden   {
       return false;
     }
     DetalleOrden detalleOrden = (DetalleOrden) o;
-    return Objects.equals(this.idDetOrden, detalleOrden.idDetOrden) &&
+    return Objects.equals(this.iddetorden, detalleOrden.iddetorden) &&
         Objects.equals(this.idOrden, detalleOrden.idOrden) &&
         Objects.equals(this.idProducto, detalleOrden.idProducto) &&
         Objects.equals(this.cantidad, detalleOrden.cantidad) &&
@@ -201,7 +220,7 @@ public class DetalleOrden   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(idDetOrden, idOrden, idProducto, cantidad, valorUnidad, idProveedor, estado);
+    return Objects.hash(iddetorden, idOrden, idProducto, cantidad, valorUnidad, idProveedor, estado);
   }
 
   @Override
@@ -209,7 +228,7 @@ public class DetalleOrden   {
     StringBuilder sb = new StringBuilder();
     sb.append("class DetalleOrden {\n");
     
-    sb.append("    idDetOrden: ").append(toIndentedString(idDetOrden)).append("\n");
+    sb.append("    idDetOrden: ").append(toIndentedString(iddetorden)).append("\n");
     sb.append("    idOrden: ").append(toIndentedString(idOrden)).append("\n");
     sb.append("    idProducto: ").append(toIndentedString(idProducto)).append("\n");
     sb.append("    cantidad: ").append(toIndentedString(cantidad)).append("\n");

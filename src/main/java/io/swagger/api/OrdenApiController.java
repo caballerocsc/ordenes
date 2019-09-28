@@ -1,8 +1,10 @@
 package io.swagger.api;
 
+import io.swagger.model.DetalleOrden;
 import io.swagger.model.Orden;
 import io.swagger.model.OrdenRsType;
 import io.swagger.model.PatchRequest;
+import io.swagger.repository.DetalleOrdenRepository;
 import io.swagger.repository.OrdenRepository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,6 +34,9 @@ public class OrdenApiController implements OrdenApi {
 
 	@Autowired
 	private OrdenRepository ordenR;
+	
+	@Autowired
+	private DetalleOrdenRepository detOrdenR;
 	
     private static final Logger log = LoggerFactory.getLogger(OrdenApiController.class);
 
@@ -63,6 +68,8 @@ public class OrdenApiController implements OrdenApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
+            	List<DetalleOrden> det = detOrdenR.findByIdOrden(idOrden);
+            	System.out.println(det.get(0).toString());
                 return new ResponseEntity<OrdenRsType>(objectMapper.readValue("{  \"datosBasicos\" : { },  \"status\" : {    \"statusDesc\" : \"statusDesc\",    \"statusCode\" : 0  }}", OrdenRsType.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
@@ -77,8 +84,8 @@ public class OrdenApiController implements OrdenApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-            	Orden orden = ordenR.findOne(Integer.parseInt(idCliente)) ;
-            	System.out.println(orden.toString());
+            	List<Orden> ordenes = ordenR.findByIdCliente(Integer.parseInt(idCliente)) ;
+            	System.out.println(ordenes.get(0).toString());
                 return new ResponseEntity<OrdenRsType>(objectMapper.readValue("{  \"datosBasicos\" : { },  \"status\" : {    \"statusDesc\" : \"statusDesc\",    \"statusCode\" : 0  }}", OrdenRsType.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
@@ -93,6 +100,8 @@ public class OrdenApiController implements OrdenApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
+            	Orden orden = ordenR.findOne(idOrden) ;
+            	System.out.println(orden.toString());
                 return new ResponseEntity<OrdenRsType>(objectMapper.readValue("{  \"datosBasicos\" : { },  \"status\" : {    \"statusDesc\" : \"statusDesc\",    \"statusCode\" : 0  }}", OrdenRsType.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
@@ -107,6 +116,8 @@ public class OrdenApiController implements OrdenApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
+            	List<Orden> orden = ordenR.findByIdActivas();
+            	System.out.println(orden.get(0).toString());
                 return new ResponseEntity<OrdenRsType>(objectMapper.readValue("{  \"datosBasicos\" : { },  \"status\" : {    \"statusDesc\" : \"statusDesc\",    \"statusCode\" : 0  }}", OrdenRsType.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
@@ -121,6 +132,8 @@ public class OrdenApiController implements OrdenApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
+            	List<DetalleOrden> det = detOrdenR.findByIdProducto(idProducto);
+            	System.out.println(det.get(0).toString());
                 return new ResponseEntity<OrdenRsType>(objectMapper.readValue("{  \"datosBasicos\" : { },  \"status\" : {    \"statusDesc\" : \"statusDesc\",    \"statusCode\" : 0  }}", OrdenRsType.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
@@ -135,6 +148,8 @@ public class OrdenApiController implements OrdenApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
+            	Orden o = ordenR.save(orden);
+            	System.out.println(o.toString());
                 return new ResponseEntity<OrdenRsType>(objectMapper.readValue("{  \"datosBasicos\" : { },  \"status\" : {    \"statusDesc\" : \"statusDesc\",    \"statusCode\" : 0  }}", OrdenRsType.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
