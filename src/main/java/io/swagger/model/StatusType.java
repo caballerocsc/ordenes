@@ -17,6 +17,13 @@ import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-09-21T18:52:45.181Z")
 
 public class StatusType   {
+	
+	public StatusType(int statusCode, String statusDesc) {
+		this.statusCode = statusCode;
+		this.statusDesc = statusDesc;
+
+	}
+
   @JsonProperty("statusCode")
   private Integer statusCode = null;
 

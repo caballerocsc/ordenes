@@ -3,7 +3,8 @@ package io.swagger.api;
 import io.swagger.model.DetalleOrden;
 import io.swagger.model.Orden;
 import io.swagger.model.OrdenRsType;
-import io.swagger.model.PatchRequest;
+import io.swagger.model.ParametrosDeSalidaType;
+import io.swagger.model.StatusType;
 import io.swagger.repository.DetalleOrdenRepository;
 import io.swagger.repository.OrdenRepository;
 
@@ -19,13 +20,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.List;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-09-21T18:52:45.181Z")
 
@@ -50,12 +47,17 @@ public class OrdenApiController implements OrdenApi {
         this.request = request;
     }
 
-    public ResponseEntity<OrdenRsType> actualizarOrdenPorId(@ApiParam(value = "Cabecera estándar" ,required=true) @RequestHeader(value="headerRq", required=true) String headerRq,@ApiParam(value = "servKall4" ,required=true) @RequestHeader(value="serviceID", required=true) String serviceID,@ApiParam(value = "Id del orden a inactivar",required=true) @PathVariable("idOrden") Integer idOrden,@ApiParam(value = "" ,required=true )  @Valid @RequestBody PatchRequest jsonPatch) {
+    public ResponseEntity<OrdenRsType> actualizarOrdenPorId(@ApiParam(value = "Cabecera estándar" ,required=true) @RequestHeader(value="headerRq", required=true) String headerRq,@ApiParam(value = "servKall4" ,required=true) @RequestHeader(value="serviceID", required=true) String serviceID,@ApiParam(value = "Id del orden a inactivar",required=true) @PathVariable("idOrden") Integer idOrden,@ApiParam(value = "" ,required=true )  @Valid @RequestBody Orden orden) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<OrdenRsType>(objectMapper.readValue("{  \"datosBasicos\" : { },  \"status\" : {    \"statusDesc\" : \"statusDesc\",    \"statusCode\" : 0  }}", OrdenRsType.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
+            	Orden o = ordenR.save(orden);
+            	System.out.println(o.toString());
+            	StatusType statusType = new StatusType(200, "EXITO");
+            	OrdenRsType ost = new OrdenRsType();
+            	ost.setStatus(statusType);
+            	return new ResponseEntity<OrdenRsType>(ost,HttpStatus.ACCEPTED);
+            } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<OrdenRsType>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -70,8 +72,14 @@ public class OrdenApiController implements OrdenApi {
             try {
             	List<DetalleOrden> det = detOrdenR.findByIdOrden(idOrden);
             	System.out.println(det.get(0).toString());
-                return new ResponseEntity<OrdenRsType>(objectMapper.readValue("{  \"datosBasicos\" : { },  \"status\" : {    \"statusDesc\" : \"statusDesc\",    \"statusCode\" : 0  }}", OrdenRsType.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
+            	ParametrosDeSalidaType ps = new ParametrosDeSalidaType();
+            	ps.detalles(det);
+            	StatusType statusType = new StatusType(200, "EXITO");
+            	OrdenRsType ost = new OrdenRsType();
+            	ost.datosBasicos(ps);
+            	ost.setStatus(statusType);
+            	return new ResponseEntity<OrdenRsType>(ost,HttpStatus.ACCEPTED);
+            } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<OrdenRsType>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -86,8 +94,14 @@ public class OrdenApiController implements OrdenApi {
             try {
             	List<Orden> ordenes = ordenR.findByIdCliente(Integer.parseInt(idCliente)) ;
             	System.out.println(ordenes.get(0).toString());
-                return new ResponseEntity<OrdenRsType>(objectMapper.readValue("{  \"datosBasicos\" : { },  \"status\" : {    \"statusDesc\" : \"statusDesc\",    \"statusCode\" : 0  }}", OrdenRsType.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
+            	StatusType statusType = new StatusType(200, "EXITO");
+            	ParametrosDeSalidaType ps = new ParametrosDeSalidaType();
+            	ps.ordenes(ordenes);
+            	OrdenRsType or = new OrdenRsType();
+            	or.datosBasicos(ps);
+            	or.setStatus(statusType);
+            	return new ResponseEntity<OrdenRsType>(or,HttpStatus.ACCEPTED);
+            } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<OrdenRsType>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -102,8 +116,14 @@ public class OrdenApiController implements OrdenApi {
             try {
             	Orden orden = ordenR.findOne(idOrden) ;
             	System.out.println(orden.toString());
-                return new ResponseEntity<OrdenRsType>(objectMapper.readValue("{  \"datosBasicos\" : { },  \"status\" : {    \"statusDesc\" : \"statusDesc\",    \"statusCode\" : 0  }}", OrdenRsType.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
+            	StatusType statusType = new StatusType(200, "EXITO");
+            	ParametrosDeSalidaType ps = new ParametrosDeSalidaType();
+            	ps.addOrdenesItem(orden);
+            	OrdenRsType or = new OrdenRsType();
+            	or.datosBasicos(ps);
+            	or.setStatus(statusType);
+            	return new ResponseEntity<OrdenRsType>(or,HttpStatus.ACCEPTED);
+            } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<OrdenRsType>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -118,8 +138,14 @@ public class OrdenApiController implements OrdenApi {
             try {
             	List<Orden> orden = ordenR.findByIdActivas();
             	System.out.println(orden.get(0).toString());
-                return new ResponseEntity<OrdenRsType>(objectMapper.readValue("{  \"datosBasicos\" : { },  \"status\" : {    \"statusDesc\" : \"statusDesc\",    \"statusCode\" : 0  }}", OrdenRsType.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
+            	StatusType statusType = new StatusType(200, "EXITO");
+            	ParametrosDeSalidaType ps = new ParametrosDeSalidaType();
+            	ps.ordenes(orden);
+            	OrdenRsType or = new OrdenRsType();
+            	or.datosBasicos(ps);
+            	or.setStatus(statusType);
+            	return new ResponseEntity<OrdenRsType>(or,HttpStatus.ACCEPTED);
+            } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<OrdenRsType>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -134,8 +160,15 @@ public class OrdenApiController implements OrdenApi {
             try {
             	List<DetalleOrden> det = detOrdenR.findByIdProducto(idProducto);
             	System.out.println(det.get(0).toString());
-                return new ResponseEntity<OrdenRsType>(objectMapper.readValue("{  \"datosBasicos\" : { },  \"status\" : {    \"statusDesc\" : \"statusDesc\",    \"statusCode\" : 0  }}", OrdenRsType.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
+            	StatusType statusType = new StatusType(200, "EXITO");
+            	ParametrosDeSalidaType ps = new ParametrosDeSalidaType();
+            	ps.detalles(det);
+            	OrdenRsType or = new OrdenRsType();
+            	or.datosBasicos(ps);
+            	or.setStatus(statusType);
+            	return new ResponseEntity<OrdenRsType>(or,HttpStatus.ACCEPTED);
+                //return new ResponseEntity<OrdenRsType>(objectMapper.readValue("{  \"datosBasicos\" : { },  \"status\" : {    \"statusDesc\" : \"statusDesc\",    \"statusCode\" : 0  }}", OrdenRsType.class), HttpStatus.NOT_IMPLEMENTED);
+            } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<OrdenRsType>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -149,9 +182,17 @@ public class OrdenApiController implements OrdenApi {
         if (accept != null && accept.contains("application/json")) {
             try {
             	Orden o = ordenR.save(orden);
+            	//List<Orden> lo = new ArrayList<Orden>();
+            	//lo.add(o);
             	System.out.println(o.toString());
-                return new ResponseEntity<OrdenRsType>(objectMapper.readValue("{  \"datosBasicos\" : { },  \"status\" : {    \"statusDesc\" : \"statusDesc\",    \"statusCode\" : 0  }}", OrdenRsType.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
+            	StatusType statusType = new StatusType(200, "EXITO");
+            	ParametrosDeSalidaType ps = new ParametrosDeSalidaType();
+            	ps.addOrdenesItem(o);
+            	OrdenRsType orsstype = new OrdenRsType();
+            	orsstype.datosBasicos(ps);
+            	orsstype.setStatus(statusType);
+            	return new ResponseEntity<OrdenRsType>(orsstype,HttpStatus.ACCEPTED);
+            } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<OrdenRsType>(HttpStatus.INTERNAL_SERVER_ERROR);
             }

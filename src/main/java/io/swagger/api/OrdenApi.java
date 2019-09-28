@@ -36,7 +36,7 @@ public interface OrdenApi {
     @RequestMapping(value = "/orden/{idOrden}",
         produces = { "application/json" }, 
         method = RequestMethod.PUT)
-    ResponseEntity<OrdenRsType> actualizarOrdenPorId(@ApiParam(value = "Cabecera estándar" ,required=true) @RequestHeader(value="headerRq", required=true) String headerRq,@ApiParam(value = "servKall4" ,required=true) @RequestHeader(value="serviceID", required=true) String serviceID,@ApiParam(value = "Id del orden a inactivar",required=true) @PathVariable("idOrden") Integer idOrden,@ApiParam(value = "" ,required=true )  @Valid @RequestBody PatchRequest jsonPatch);
+    ResponseEntity<OrdenRsType> actualizarOrdenPorId(@ApiParam(value = "Cabecera estándar" ,required=true) @RequestHeader(value="headerRq", required=true) String headerRq,@ApiParam(value = "servKall4" ,required=true) @RequestHeader(value="serviceID", required=true) String serviceID,@ApiParam(value = "Id del orden a inactivar",required=true) @PathVariable("idOrden") Integer idOrden,@ApiParam(value = "" ,required=true )  @Valid @RequestBody Orden orden);
 
 
     @ApiOperation(value = "Consultar Detalle por IdOrden", nickname = "conultarDetalleOrdenPorIdOrden", notes = "Retorna una orden", response = OrdenRsType.class, tags={ "Detalle Orden", })
