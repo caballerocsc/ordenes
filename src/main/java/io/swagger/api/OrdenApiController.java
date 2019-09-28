@@ -191,7 +191,7 @@ public class OrdenApiController implements OrdenApi {
             	OrdenRsType orsstype = new OrdenRsType();
             	orsstype.datosBasicos(ps);
             	orsstype.setStatus(statusType);
-            	return new ResponseEntity<OrdenRsType>(orsstype,HttpStatus.ACCEPTED);
+            	return new ResponseEntity<OrdenRsType>(orsstype,HttpStatus.OK);
             } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<OrdenRsType>(HttpStatus.INTERNAL_SERVER_ERROR);
