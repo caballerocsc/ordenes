@@ -56,7 +56,7 @@ public class OrdenApiController implements OrdenApi {
             	StatusType statusType = new StatusType(200, "EXITO");
             	OrdenRsType ost = new OrdenRsType();
             	ost.setStatus(statusType);
-            	return new ResponseEntity<OrdenRsType>(ost,HttpStatus.ACCEPTED);
+            	return new ResponseEntity<OrdenRsType>(ost,HttpStatus.OK);
             } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<OrdenRsType>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -78,7 +78,7 @@ public class OrdenApiController implements OrdenApi {
             	OrdenRsType ost = new OrdenRsType();
             	ost.datosBasicos(ps);
             	ost.setStatus(statusType);
-            	return new ResponseEntity<OrdenRsType>(ost,HttpStatus.ACCEPTED);
+            	return new ResponseEntity<OrdenRsType>(ost,HttpStatus.OK);
             } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<OrdenRsType>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -100,7 +100,7 @@ public class OrdenApiController implements OrdenApi {
             	OrdenRsType or = new OrdenRsType();
             	or.datosBasicos(ps);
             	or.setStatus(statusType);
-            	return new ResponseEntity<OrdenRsType>(or,HttpStatus.ACCEPTED);
+            	return new ResponseEntity<OrdenRsType>(or,HttpStatus.OK);
             } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<OrdenRsType>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -122,7 +122,7 @@ public class OrdenApiController implements OrdenApi {
             	OrdenRsType or = new OrdenRsType();
             	or.datosBasicos(ps);
             	or.setStatus(statusType);
-            	return new ResponseEntity<OrdenRsType>(or,HttpStatus.ACCEPTED);
+            	return new ResponseEntity<OrdenRsType>(or,HttpStatus.OK);
             } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<OrdenRsType>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -144,7 +144,7 @@ public class OrdenApiController implements OrdenApi {
             	OrdenRsType or = new OrdenRsType();
             	or.datosBasicos(ps);
             	or.setStatus(statusType);
-            	return new ResponseEntity<OrdenRsType>(or,HttpStatus.ACCEPTED);
+            	return new ResponseEntity<OrdenRsType>(or,HttpStatus.OK);
             } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
                 return new ResponseEntity<OrdenRsType>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -166,7 +166,7 @@ public class OrdenApiController implements OrdenApi {
             	OrdenRsType or = new OrdenRsType();
             	or.datosBasicos(ps);
             	or.setStatus(statusType);
-            	return new ResponseEntity<OrdenRsType>(or,HttpStatus.ACCEPTED);
+            	return new ResponseEntity<OrdenRsType>(or,HttpStatus.OK);
                 //return new ResponseEntity<OrdenRsType>(objectMapper.readValue("{  \"datosBasicos\" : { },  \"status\" : {    \"statusDesc\" : \"statusDesc\",    \"statusCode\" : 0  }}", OrdenRsType.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
