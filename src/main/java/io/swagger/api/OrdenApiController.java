@@ -114,7 +114,7 @@ public class OrdenApiController implements OrdenApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-            	Orden orden = ordenR.findOne(idOrden) ;
+            	Orden orden = ordenR.findByIdOrden(idOrden) ;
             	System.out.println(orden.toString());
             	StatusType statusType = new StatusType(200, "EXITO");
             	ParametrosDeSalidaType ps = new ParametrosDeSalidaType();
