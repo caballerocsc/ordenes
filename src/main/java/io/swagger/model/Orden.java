@@ -41,11 +41,11 @@ public class Orden   {
 
   @Column(name = "idcliente")
   @JsonProperty("idCliente")
-  private Integer idCliente = null;
+  private String idCliente = null;
 
   @Column(name = "iddireccion")
   @JsonProperty("idDireccion")
-  private Integer idDireccion = null;
+  private String idDireccion = null;
 
   @Column(name = "valortotal")
   @JsonProperty("valorTotal")
@@ -99,7 +99,7 @@ public class Orden   {
     this.idorden = idOrden;
   }
 
-  public Orden idCliente(Integer idCliente) {
+  public Orden idCliente(String idCliente) {
     this.idCliente = idCliente;
     return this;
   }
@@ -111,15 +111,15 @@ public class Orden   {
   @ApiModelProperty(value = "")
 
 
-  public Integer getIdCliente() {
+  public String getIdCliente() {
     return idCliente;
   }
 
-  public void setIdCliente(Integer idCliente) {
+  public void setIdCliente(String idCliente) {
     this.idCliente = idCliente;
   }
 
-  public Orden idDireccion(Integer idDireccion) {
+  public Orden idDireccion(String idDireccion) {
     this.idDireccion = idDireccion;
     return this;
   }
@@ -131,11 +131,11 @@ public class Orden   {
   @ApiModelProperty(value = "")
 
 
-  public Integer getIdDireccion() {
+  public String getIdDireccion() {
     return idDireccion;
   }
 
-  public void setIdDireccion(Integer idDireccion) {
+  public void setIdDireccion(String idDireccion) {
     this.idDireccion = idDireccion;
   }
 

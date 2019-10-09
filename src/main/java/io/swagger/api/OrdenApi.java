@@ -74,15 +74,15 @@ public interface OrdenApi {
     ResponseEntity<OrdenRsType> conultarOrdenPorId(@ApiParam(value = "Cabecera estándar" ,required=true) @RequestHeader(value="headerRq", required=true) String headerRq,@ApiParam(value = "servKall4" ,required=true) @RequestHeader(value="serviceID", required=true) String serviceID,@ApiParam(value = "Id del orden a consultar",required=true) @PathVariable("idOrden") Integer idOrden);
 
 
-    @ApiOperation(value = "Consultar Ordenes Activas", nickname = "conultarOrdenesActivas", notes = "Retorna ordenes activas", response = OrdenRsType.class, tags={ "Orden", })
+    @ApiOperation(value = "Consultar Ordenes por estado", nickname = "conultarOrdenesPorEstado", notes = "Retorna ordenes por estado", response = OrdenRsType.class, tags={ "Orden", })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "EXITO", response = OrdenRsType.class),
         @ApiResponse(code = 400, message = "Bad request", response = OrdenRsType.class),
         @ApiResponse(code = 404, message = "Not found", response = OrdenRsType.class) })
-    @RequestMapping(value = "/orden/consultarActivas",
+    @RequestMapping(value = "/orden/consultarPorEstado",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<OrdenRsType> conultarOrdenesActivas(@ApiParam(value = "Cabecera estándar" ,required=true) @RequestHeader(value="headerRq", required=true) String headerRq,@ApiParam(value = "servKall4" ,required=true) @RequestHeader(value="serviceID", required=true) String serviceID);
+    ResponseEntity<OrdenRsType> conultarOrdenesPorEstado(@ApiParam(value = "Cabecera estándar" ,required=true) @RequestHeader(value="headerRq", required=true) String headerRq,@ApiParam(value = "servKall4" ,required=true) @RequestHeader(value="serviceID", required=true) String serviceID,@ApiParam(value = "Id del orden a consultar",required=true) @PathVariable("idEstado") int idEstado);
 
 
     @ApiOperation(value = "Consultar Detalle por IdProducto", nickname = "conultarOrdenesPorIdProducto", notes = "Retorna una orden por producto", response = OrdenRsType.class, tags={ "Orden", })

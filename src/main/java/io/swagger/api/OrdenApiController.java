@@ -92,8 +92,9 @@ public class OrdenApiController implements OrdenApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-            	List<Orden> ordenes = ordenR.findByIdCliente(Integer.parseInt(idCliente)) ;
-            	System.out.println(ordenes.get(0).toString());
+            	System.out.println("id cliente: "+idCliente);
+            	List<Orden> ordenes = ordenR.findByIdCliente(idCliente) ;
+            	//System.out.println(ordenes.get(0).toString());
             	StatusType statusType = new StatusType(200, "EXITO");
             	ParametrosDeSalidaType ps = new ParametrosDeSalidaType();
             	ps.ordenes(ordenes);
@@ -132,11 +133,11 @@ public class OrdenApiController implements OrdenApi {
         return new ResponseEntity<OrdenRsType>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<OrdenRsType> conultarOrdenesActivas(@ApiParam(value = "Cabecera estándar" ,required=true) @RequestHeader(value="headerRq", required=true) String headerRq,@ApiParam(value = "servKall4" ,required=true) @RequestHeader(value="serviceID", required=true) String serviceID) {
+    public ResponseEntity<OrdenRsType> conultarOrdenesPorEstado(String headerRq, String serviceID, int idEstado) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-            	List<Orden> orden = ordenR.findByIdActivas();
+            	List<Orden> orden = ordenR.findByIdEstado(idEstado);
             	System.out.println(orden.get(0).toString());
             	StatusType statusType = new StatusType(200, "EXITO");
             	ParametrosDeSalidaType ps = new ParametrosDeSalidaType();
@@ -200,5 +201,6 @@ public class OrdenApiController implements OrdenApi {
 
         return new ResponseEntity<OrdenRsType>(HttpStatus.NOT_IMPLEMENTED);
     }
+
 
 }
