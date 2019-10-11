@@ -15,7 +15,7 @@ public interface OrdenRepository extends JpaRepository<Orden, Integer>{
 			"o.idcliente = c.idcliente\r\n" + 
 			"inner join direccion d on\r\n" + 
 			"d.iddireccion = o.iddireccion\r\n" + 
-			"WHERE c.nombre like ?1 ", nativeQuery = true)
+			"WHERE c.nombre like %?1% ", nativeQuery = true)
 	public List<Orden> findByIdCliente(String cliente);
 	
 	@Query(value ="select o.idorden, c.nombre+' '+ c.apellido as idcliente, d.direccion as iddireccion, o.valortotal, o.cantidadproductos, o.fechasolicitud, o.fechaaprobacion, o.fechacierre, o.estado, o.comentario, o.origen\r\n" + 
