@@ -34,9 +34,10 @@ public class Orden   {
 		
 	}
 
-@JsonProperty("idorden")
+  @Column(name = "idorden")
+  @JsonProperty("idorden")
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer idorden = null;
 
   @Column(name = "idcliente")

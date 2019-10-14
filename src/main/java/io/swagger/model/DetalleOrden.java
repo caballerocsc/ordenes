@@ -39,7 +39,7 @@ public class DetalleOrden   {
 
   @Column(name = "idproducto")
   @JsonProperty("idProducto")
-  private Integer idProducto = null;
+  private String idProducto = null;
 
   @Column(name = "cantidad")
   @JsonProperty("cantidad")
@@ -51,7 +51,7 @@ public class DetalleOrden   {
 
   @Column(name = "idproveedor")
   @JsonProperty("idProveedor")
-  private Integer idProveedor = null;
+  private String idProveedor = null;
 
   @Column(name = "estado")
   @JsonProperty("estado")
@@ -98,7 +98,7 @@ public class DetalleOrden   {
     this.idOrden = idOrden;
   }
 
-  public DetalleOrden idProducto(Integer idProducto) {
+  public DetalleOrden idProducto(String idProducto) {
     this.idProducto = idProducto;
     return this;
   }
@@ -110,11 +110,11 @@ public class DetalleOrden   {
   @ApiModelProperty(value = "")
 
 
-  public Integer getIdProducto() {
+  public String getIdProducto() {
     return idProducto;
   }
 
-  public void setIdProducto(Integer idProducto) {
+  public void setIdProducto(String idProducto) {
     this.idProducto = idProducto;
   }
 
@@ -159,7 +159,7 @@ public class DetalleOrden   {
     this.valorUnidad = valorUnidad;
   }
 
-  public DetalleOrden idProveedor(Integer idProveedor) {
+  public DetalleOrden idProveedor(String idProveedor) {
     this.idProveedor = idProveedor;
     return this;
   }
@@ -171,11 +171,11 @@ public class DetalleOrden   {
   @ApiModelProperty(value = "")
 
 
-  public Integer getIdProveedor() {
+  public String getIdProveedor() {
     return idProveedor;
   }
 
-  public void setIdProveedor(Integer idProveedor) {
+  public void setIdProveedor(String idProveedor) {
     this.idProveedor = idProveedor;
   }
 

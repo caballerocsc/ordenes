@@ -51,8 +51,9 @@ public class OrdenApiController implements OrdenApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-            	Orden o = ordenR.save(orden);
-            	System.out.println(o.toString());
+            	//Orden o = ordenR.save(orden);
+            	ordenR.actualizaEstado(orden.getEstado(), orden.getIdOrden());
+            	//System.out.println(o.toString());
             	StatusType statusType = new StatusType(200, "EXITO");
             	OrdenRsType ost = new OrdenRsType();
             	ost.setStatus(statusType);
@@ -93,7 +94,7 @@ public class OrdenApiController implements OrdenApi {
         if (accept != null && accept.contains("application/json")) {
             try {
             	System.out.println("id cliente: "+idCliente);
-            	List<Orden> ordenes = ordenR.findByIdCliente(idCliente) ;
+            	List<Orden> ordenes = ordenR.findByIdCliente(idCliente, idCliente) ;
             	//System.out.println(ordenes.get(0).toString());
             	StatusType statusType = new StatusType(200, "EXITO");
             	ParametrosDeSalidaType ps = new ParametrosDeSalidaType();
@@ -155,15 +156,23 @@ public class OrdenApiController implements OrdenApi {
         return new ResponseEntity<OrdenRsType>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<OrdenRsType> conultarOrdenesPorIdProducto(@ApiParam(value = "Cabecera estándar" ,required=true) @RequestHeader(value="headerRq", required=true) String headerRq,@ApiParam(value = "servKall4" ,required=true) @RequestHeader(value="serviceID", required=true) String serviceID,@NotNull @ApiParam(value = "Id del producto para listar las ordenes que lo contienen", required = true) @Valid @RequestParam(value = "idProducto", required = true) Integer idProducto) {
+    public ResponseEntity<OrdenRsType> conultarOrdenesPorIdProducto(@ApiParam(value = "Cabecera estándar" ,required=true) @RequestHeader(value="headerRq", required=true) String headerRq,@ApiParam(value = "servKall4" ,required=true) @RequestHeader(value="serviceID", required=true) String serviceID,@NotNull @ApiParam(value = "Id del producto para listar las ordenes que lo contienen", required = true) @Valid @RequestParam(value = "idProducto", required = true) String nombre) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-            	List<DetalleOrden> det = detOrdenR.findByIdProducto(idProducto);
-            	System.out.println(det.get(0).toString());
+//            	List<DetalleOrden> det = detOrdenR.findByIdProducto(idProducto);
+//            	System.out.println(det.get(0).toString());
+//            	StatusType statusType = new StatusType(200, "EXITO");
+//            	ParametrosDeSalidaType ps = new ParametrosDeSalidaType();
+//            	ps.detalles(det);
+//            	OrdenRsType or = new OrdenRsType();
+//            	or.datosBasicos(ps);
+//            	or.setStatus(statusType);
+            	System.out.println("llegue a sprin: "+nombre);
+            	List<Orden> ord = ordenR.findByProducto(nombre);
             	StatusType statusType = new StatusType(200, "EXITO");
             	ParametrosDeSalidaType ps = new ParametrosDeSalidaType();
-            	ps.detalles(det);
+            	ps.ordenes(ord);
             	OrdenRsType or = new OrdenRsType();
             	or.datosBasicos(ps);
             	or.setStatus(statusType);

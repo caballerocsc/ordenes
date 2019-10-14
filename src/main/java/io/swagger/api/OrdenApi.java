@@ -93,7 +93,7 @@ public interface OrdenApi {
     @RequestMapping(value = "/orden/ordenesPorProducto",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<OrdenRsType> conultarOrdenesPorIdProducto(@ApiParam(value = "Cabecera estándar" ,required=true) @RequestHeader(value="headerRq", required=true) String headerRq,@ApiParam(value = "servKall4" ,required=true) @RequestHeader(value="serviceID", required=true) String serviceID,@NotNull @ApiParam(value = "Id del producto para listar las ordenes que lo contienen", required = true) @Valid @RequestParam(value = "idProducto", required = true) Integer idProducto);
+    ResponseEntity<OrdenRsType> conultarOrdenesPorIdProducto(@ApiParam(value = "Cabecera estándar" ,required=true) @RequestHeader(value="headerRq", required=true) String headerRq,@ApiParam(value = "servKall4" ,required=true) @RequestHeader(value="serviceID", required=true) String serviceID,@NotNull @ApiParam(value = "Id del producto para listar las ordenes que lo contienen", required = true) @Valid @RequestParam(value = "idProducto", required = true) String name);
 
 
     @ApiOperation(value = "Registrar una Orden", nickname = "registrarOrden", notes = "", response = OrdenRsType.class, tags={ "Orden", })
