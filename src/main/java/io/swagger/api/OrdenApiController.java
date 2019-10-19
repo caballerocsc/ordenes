@@ -210,6 +210,31 @@ public class OrdenApiController implements OrdenApi {
 
         return new ResponseEntity<OrdenRsType>(HttpStatus.NOT_IMPLEMENTED);
     }
+    
+    public ResponseEntity<OrdenRsType> registrarDetalleOrden(@ApiParam(value = "Cabecera estándar" ,required=true) @RequestHeader(value="headerRq", required=true) String headerRq,@ApiParam(value = "servKall4" ,required=true) @RequestHeader(value="serviceID", required=true) String serviceID,@ApiParam(value = "Detalle de Orden a registrar" ,required=true )  @Valid @RequestBody DetalleOrden detOrden) {
+        String accept = request.getHeader("Accept");
+        if (accept != null && accept.contains("application/json")) {
+            try {
+            	System.out.println("objecto entrada: "+detOrden.toString());
+            	DetalleOrden dt = detOrdenR.save(detOrden);
+            	//List<Orden> lo = new ArrayList<Orden>();
+            	//lo.add(o);
+            	//System.out.println(o.toString());
+            	StatusType statusType = new StatusType(200, "EXITO");
+            	ParametrosDeSalidaType ps = new ParametrosDeSalidaType();
+            	ps.addDetallesItem(dt);
+            	OrdenRsType orsstype = new OrdenRsType();
+            	orsstype.datosBasicos(ps);
+            	orsstype.setStatus(statusType);
+            	return new ResponseEntity<OrdenRsType>(orsstype,HttpStatus.OK);
+            } catch (Exception e) {
+                log.error("Couldn't serialize response for content type application/json", e);
+                return new ResponseEntity<OrdenRsType>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        return new ResponseEntity<OrdenRsType>(HttpStatus.NOT_IMPLEMENTED);
+    }
 
 
 }

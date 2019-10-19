@@ -5,6 +5,7 @@
  */
 package io.swagger.api;
 
+import io.swagger.model.DetalleOrden;
 import io.swagger.model.Orden;
 import io.swagger.model.OrdenRsType;
 import io.swagger.model.PatchRequest;
@@ -106,5 +107,16 @@ public interface OrdenApi {
         consumes = { "application/json" },
         method = RequestMethod.POST)
     ResponseEntity<OrdenRsType> registrarOrden(@ApiParam(value = "Cabecera estándar" ,required=true) @RequestHeader(value="headerRq", required=true) String headerRq,@ApiParam(value = "servKall4" ,required=true) @RequestHeader(value="serviceID", required=true) String serviceID,@ApiParam(value = "Orden a registrar" ,required=true )  @Valid @RequestBody Orden orden);
+    
+    @ApiOperation(value = "Registrar el detalle de la Orden", nickname = "registrarDetOrden", notes = "", response = OrdenRsType.class, tags={ "Detalle Orden", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "EXITO", response = OrdenRsType.class),
+        @ApiResponse(code = 400, message = "Bad request", response = OrdenRsType.class),
+        @ApiResponse(code = 404, message = "Not found", response = OrdenRsType.class) })
+    @RequestMapping(value = "/orden/detalleOrden/",
+        produces = { "application/json" }, 
+        consumes = { "application/json" },
+        method = RequestMethod.POST)
+    ResponseEntity<OrdenRsType> registrarDetalleOrden(@ApiParam(value = "Cabecera estándar" ,required=true) @RequestHeader(value="headerRq", required=true) String headerRq,@ApiParam(value = "servKall4" ,required=true) @RequestHeader(value="serviceID", required=true) String serviceID,@ApiParam(value = "Orden a registrar" ,required=true )  @Valid @RequestBody DetalleOrden detOrden);
 
 }

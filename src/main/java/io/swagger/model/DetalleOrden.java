@@ -29,8 +29,9 @@ import javax.validation.constraints.*;
 public class DetalleOrden   {
 	
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @JsonProperty("idDetOrden")
+  @Column(name = "iddetorden")
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer iddetorden = null;
 
   @Column(name = "idorden")
